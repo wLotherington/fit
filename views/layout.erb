@@ -1,0 +1,13 @@
+<html>
+<headh>
+  <title>fit</title>
+</headh>
+<body>
+  <% if session[:alert] %>
+    <p><%= session.delete(:alert) %></p>
+  <% end %>
+
+  <h1>FIT</h1>
+  <hr>
+  <%== yield %>
+</body>
