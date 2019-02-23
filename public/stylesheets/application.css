@@ -127,3 +127,15 @@ td.add button {
   color: #333333;
   font-size: 1em;
 }
+
+table.measurements td {
+  /*background-color: red;*/
+}
+
+table.measurements th {
+  width: 30%;
+}
+
+table.measurements th:nth-child(4) {
+  width: 10%;
+}

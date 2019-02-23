@@ -3,8 +3,8 @@ CREATE TABLE users (
   name text NOT NULL
 );
 
--- INSERT INTO users (name)
--- VALUES ('Will');
+INSERT INTO users (name)
+VALUES ('Will');
 
 CREATE TABLE measurements (
   id serial PRIMARY KEY,
@@ -17,3 +17,6 @@ CREATE TABLE measurements (
 
 -- INSERT INTO measurements (user_id, weight, body_fat, notes)
 -- VALUES (1, 170, 15, 'I''m just guessing');
+
+-- DROP TABLE  users CASCADE;
+-- DROP TABLE measurements;
