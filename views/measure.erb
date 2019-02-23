@@ -1,0 +1,42 @@
+<a href="/home">
+  <div class="header measure">
+    <h1><i class="fas fa-weight"></i> Measure</h1>
+  </div>
+</a>
+
+<div class="content">
+  <table class="measurements">
+    <tr>
+      <th>Date</th>
+      <th>Weight</th>
+      <th>Body Fat</th>
+      <th></th>
+    </tr>
+    <tr>
+      <form action="/measure/add" method="post" >
+        <td><input name="day" class="body-stats" type="date" value="<%= @today %>" /></td>
+        <td><input name="weight" class="body-stats" type="tel" /></td>
+        <td><input name="body_fat" class="body-stats" type="tel" /></td>
+        <td class="action add">
+          <button type="submit">
+            <i class="fas fa-plus-circle"></i>
+          </button>
+        </td>
+      </form>
+    </tr>
+    <% @measurements.each do |measurement| %>
+    <tr>
+      <td><%= measurement[:day] %></td>
+      <td><%= measurement[:weight] %> lbs</td>
+      <td><%= measurement[:body_fat] %>%</td>
+      <td class="action delete">
+        <form action="/measure/<%= measurement[:id] %>/delete" method="post">
+          <button type="submit">
+            <i class="fas fa-trash"></i></a>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

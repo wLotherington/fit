@@ -1,13 +1,21 @@
-<html>
-<headh>
-  <title>fit</title>
+<!doctype html>
+<html lang="en-US">
+<head>
+  <title>Fit</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" href="/stylesheets/application.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 </headh>
 <body>
+
   <% if session[:alert] %>
     <p><%= session.delete(:alert) %></p>
   <% end %>
 
-  <h1>FIT</h1>
-  <hr>
   <%== yield %>
+
+  <div class="footer">
+    Logged in as <%= session[:user][:name] %> <a class="logout" href="/logout">Click here to log out</a>
+  </div>
 </body>
