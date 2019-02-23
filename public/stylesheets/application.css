@@ -1,8 +1,18 @@
 * {
   margin: 0px;
   padding: 0px;
-  /*border: 0px;*/
+  border: 0px;
   outline: 0px;
+}
+
+button, input[type="submit"], input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 body {
