@@ -30,8 +30,8 @@
       <td><%= measurement[:weight] %> lbs</td>
       <td><%= measurement[:body_fat] %>%</td>
       <td class="action delete">
-        <form action="/measure/<%= measurement[:id] %>/delete" method="post">
-          <button type="submit">
+        <form action="/measure/<%= measurement[:id] %>/delete" method="post" class="delete">
+          <button type="submit" class="delete">
             <i class="fas fa-trash"></i></a>
           </button>
         </form>
