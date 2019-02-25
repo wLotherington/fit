@@ -17,7 +17,7 @@
         <td class="w-15"><input name="day" class="workout-form" type="checkbox" /></td>
         <td class="w-55"><input name="day" class="workout-form full-width" type="text" /></td>
         <td class="w-15"><input name="day" class="workout-form" type="checkbox" /></td>
-        <td class="w-15" class="action add">
+        <td class="action add w-15">
           <button type="submit">
             <i class="fas fa-plus-circle"></i>
           </button>
@@ -26,10 +26,10 @@
     </tr>
     <% @workouts.each do |workout| %>
     <tr>
-      <td class="w-15" class="action gray"><i class="<%= active_workout(workout[:public]) %>"></i></td>
+      <td class="w-15 action gray"><i class="<%= active_workout(workout[:public]) %>"></i></td>
       <td class="w-55"><%= workout[:name] %></td>
-      <td class="w-15" class="action gray"><i class="<%= public_workout(workout[:public]) %>"></i></td>
-      <td class="w-15" class="action"><i class="fas fa-edit"></i></td>
+      <td class="w-15 action gray"><i class="<%= public_workout(workout[:public]) %>"></i></td>
+      <td class="w-15 action"><i class="fas fa-edit"></i></td>
     </tr>
     <% end %>
   </table>
