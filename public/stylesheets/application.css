@@ -158,6 +158,14 @@ table.manages th:nth-child(1), table.manages th:nth-child(3), table.manages th:n
   width: 15%;
 }
 
+.w-15 {
+  width: 15%;
+}
+
+.w-55 {
+  width: 55%;
+}
+
 [type="checkbox"]
 {
     vertical-align:middle;
