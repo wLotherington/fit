@@ -55,6 +55,23 @@ class Database
     query(sql, user_id.to_i, params[:day], params[:weight].to_f, params[:body_fat].to_f)
   end
 
+  def get_workouts(user_id)
+    sql = 'SELECT * FROM workouts WHERE creator_id=$1 ORDER BY day_created DESC'
+    results = query(sql, user_id)
+
+    results.map do |tuple|
+      {
+        id: tuple['id'],
+        name: tuple['name'],
+        notes: tuple['notes'],
+        public: tuple['public'],
+        day_created: tuple['day_created'],
+        creator_id: tuple['creator_id'],
+        active: tuple['active'],
+      }
+    end
+  end
+
   private
 
   def query(statement, *params)

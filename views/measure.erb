@@ -5,7 +5,7 @@
 </a>
 
 <div class="content">
-  <table class="measurements">
+  <table class="measurements container">
     <tr>
       <th>Date</th>
       <th>Weight</th>
@@ -29,9 +29,9 @@
       <td><%= measurement[:day] %></td>
       <td><%= measurement[:weight] %> lbs</td>
       <td><%= measurement[:body_fat] %>%</td>
-      <td class="action delete">
-        <form action="/measure/<%= measurement[:id] %>/delete" method="post" class="delete">
-          <button type="submit" class="delete">
+      <td class="action gray">
+        <form action="/measure/<%= measurement[:id] %>/delete" method="post" class="gray">
+          <button type="submit" class="gray">
             <i class="fas fa-trash"></i></a>
           </button>
         </form>

@@ -94,7 +94,7 @@ div.button {
   color: #fff;
 }
 
-table.measurements {
+table.container {
   width: 100%;
   color: #333333;
   border-collapse: collapse;
@@ -102,7 +102,7 @@ table.measurements {
   line-height: 40px;
 }
 
-table.measurements tr {
+table.container tr {
   border-bottom: 1px solid #bfbfbb;
 }
 
@@ -112,10 +112,20 @@ table.measurements tr {
 
 input.body-stats {
   border: 1px solid #bfbfbb;
-  /*background-color: #bfbfbb;*/
   width: 80%;
   height: 25px;
   text-align: center;
+}
+
+input.workout-form {
+  border: 1px solid #bfbfbb;
+  height: 25px;
+  text-align: center;
+  padding: 0px;
+}
+
+input.full-width {
+  width: 100%;
 }
 
 td.delete button {
@@ -123,13 +133,13 @@ td.delete button {
   font-size: 1em;
 }
 
+td.gray {
+  color: #bfbfbb;
+}
+
 td.add button {
   color: #333333;
   font-size: 1em;
-}
-
-table.measurements td {
-  /*background-color: red;*/
 }
 
 table.measurements th {
@@ -138,4 +148,18 @@ table.measurements th {
 
 table.measurements th:nth-child(4) {
   width: 10%;
+}
+
+table.manages tr:nth-child(2) td {
+  text-align: center;
+}
+
+table.manages th:nth-child(1), table.manages th:nth-child(3), table.manages th:nth-child(4) {
+  width: 15%;
+}
+
+[type="checkbox"]
+{
+    vertical-align:middle;
+    transform: scale(1.75);
 }

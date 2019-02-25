@@ -16,6 +16,21 @@ configure(:development) do
 end
 
 helpers do
+  def public_workout(bool)
+    if bool == 't'
+      'fas fa-eye' 
+    else
+      'fas fa-eye-slash'
+    end
+  end
+
+  def active_workout(bool)
+    if bool == 't'
+      'fas fa-check-square' 
+    else
+      'far fa-square'
+    end
+  end
 end
 
 before do
@@ -34,6 +49,7 @@ end
 # user login
 get '/login' do
   # eventually needs to be a login screen
+  # limit character length
   session[:user] = @storage.get_user('Will')
   redirect '/home'
 end
@@ -64,10 +80,14 @@ end
 
 # workout management portal
 get '/manage' do
+  user_id = session[:user][:id]
+  @workouts = @storage.get_workouts(user_id)
+  # @today = Time.now.to_s[0..9]
   erb :manage
 end
 
 post '/measure/add' do
+  redirect '/measure' if params[:day].empty?
   @storage.add_measurement(session[:user][:id], params)
   redirect '/measure'
 end
