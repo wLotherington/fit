@@ -42,57 +42,67 @@ after do
 end
 
 get '/' do
-  redirect '/home' if !!session[:user]
-  redirect '/login'
-end
-
-# user login
-get '/login' do
-  # eventually needs to be a login screen
-  # limit character length
-  session[:user] = @storage.get_user('Will')
-  redirect '/home'
-end
-
-# logout user
-get '/logout' do
-  session[:user] = nil
-  redirect '/'
-end
-
-# portal hub
-get '/home' do
   erb :home
 end
 
-# workout portal
-get '/workout' do
-  erb :workout
-end
-
+# MEASURE
 # body measurement portal
 get '/measure' do
-  user_id = session[:user][:id]
-  @measurements = @storage.get_measurements(user_id)
+  @measurements = @storage.get_measurements
   @today = Time.now.to_s[0..9]
   erb :measure
 end
 
-# workout management portal
-get '/manage' do
-  user_id = session[:user][:id]
-  @workouts = @storage.get_workouts(user_id)
-  # @today = Time.now.to_s[0..9]
-  erb :manage
-end
-
+# add body measurement
 post '/measure/add' do
   redirect '/measure' if params[:day].empty?
-  @storage.add_measurement(session[:user][:id], params)
+  @storage.add_measurement(params)
   redirect '/measure'
 end
 
 post '/measure/:id/delete' do
   @storage.delete_measurement(params[:id])
   redirect '/measure'
+end
+
+# MANAGE
+# workout management portal
+get '/manage' do
+  @workouts = @storage.get_workouts
+  # @today = Time.now.to_s[0..9]
+  erb :manage
+end
+
+# add workout
+post '/manage/add' do
+  @measurements = @storage.add_workout(params)
+  redirect '/manage'
+end
+
+# edit workout
+get '/manage/:id/edit' do
+  @workouts = @storage.get_workout(params[:id])
+  @exercises = @storage.get_exercises
+  erb :edit_workout
+end
+
+get '/manage/create_workout' do
+  erb :create_workout
+end
+
+post '/manage/create_workout' do
+  @storage.create_workout(params)
+  workout_id = @storage.get_workout_id(params)
+  redirect "/manage/#{workout_id}/edit"
+end
+
+post '/manage/:id/delete' do
+  @storage.delete_workout(params[:id])
+  redirect '/manage'
+end
+
+# WORKOUT
+# workout portal
+get '/workout' do
+  erb :workout
 end

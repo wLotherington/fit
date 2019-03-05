@@ -1,0 +1,17 @@
+<a href="/">
+  <div class="header manage">
+    <h1><i class="fas fa-edit"></i> Manage</h1>
+  </div>
+</a>
+
+<div class="content">
+ <form action="/manage/create_workout" method="post" >
+    <label for="day">Workout Name</label><input name="name" class="body-stats" type="text" /><br><br>
+    <label for="day">Active</label><input name="active" class="body-stats" type="checkbox" /><br><br>
+    <button type="submit">
+      Create Workout
+    </button>
+  </form>
+
+  <a href="/manage">Cancel</a>
+</div>

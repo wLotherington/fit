@@ -162,8 +162,7 @@ table.manages tr:nth-child(2) td {
   width: 55%;
 }
 
-[type="checkbox"]
-{
-    vertical-align:middle;
-    transform: scale(1.75);
+[type="checkbox"] {
+  vertical-align:middle;
+  transform: scale(1.75);
 }

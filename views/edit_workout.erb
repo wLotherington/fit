@@ -1,0 +1,37 @@
+<a href="/">
+  <div class="header manage">
+    <h1><i class="fas fa-edit"></i> Manage</h1>
+  </div>
+</a>
+
+<div class="content">
+  <h2>Add exercises to: <%= @workouts[:name] %></h2>
+  <table width="100%">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>sets</th>
+      <th>reps</th>
+      <th>weight</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>select</td>
+      <td>input</td>
+      <td>input</td>
+      <td>input</td>
+      <td>input</td>
+      <td>plus</td>
+    </tr>
+    <% @exercises.each do |exercise| %>
+    <tr>
+      <td>select</td>
+      <td><%= exercise[:name] %></td>
+      <td><%= exercise[:sets] %></td>
+      <td><%= exercise[:reps] %></td>
+      <td><%= exercise[:weight] %></td>
+      <td>delete</td>
+    </tr>
+    <% end %>
+  </table>
+</div>

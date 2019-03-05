@@ -11,13 +11,9 @@
 </headh>
 <body>
 
-  <% if session[:alert] %>
-    <p><%= session.delete(:alert) %></p>
-  <% end %>
-
   <%== yield %>
 
   <div class="footer">
-    Logged in as <%= session[:user][:name] %>. <a class="logout" href="/logout">log out?</a>
+    .
   </div>
 </body>

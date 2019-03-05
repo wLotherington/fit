@@ -1,4 +1,4 @@
-<a href="/home">
+<a href="/">
   <div class="header manage">
     <h1><i class="fas fa-edit"></i> Manage</h1>
   </div>
@@ -7,41 +7,27 @@
 <div class="content">
   <table class="manages container">
     <tr>
-      <th class="w-15">Active</th>
-      <th class="w-55">Workout</th>
-      <th class="w-15">Public</th>
-      <th class="w-15"></th>
-    </tr>
-    <tr>
-      <form action="/workout/add" method="post" >
-        <td class="w-15"></td>
-        <td class="w-55">Import public workout.</td>
-        <td class="w-15"></td>
-        <td class="action add w-15">
-          <button type="submit">
-            <i class="fas fa-globe"></i>
-          </button>
-        </td>
-      </form>
-    </tr>
-    <tr>
-      <form action="/workout/add" method="post" >
-        <td class="w-15"><input name="day" class="workout-form" type="checkbox" /></td>
-        <td class="w-55"><input name="day" class="workout-form full-width" type="text" /></td>
-        <td class="w-15"><input name="day" class="workout-form" type="checkbox" /></td>
-        <td class="action add w-15">
-          <button type="submit">
-            <i class="fas fa-plus-circle"></i>
-          </button>
-        </td>
-      </form>
+      <th></th>
+      <th class="w-55">Workouts</th>
+      <th class="w-15">
+        <a href="/manage/create_workout"><i class="fas fa-plus-circle"></i></a>
+      </th>
     </tr>
     <% @workouts.each do |workout| %>
     <tr>
-      <td class="w-15 action gray"><i class="<%= active_workout(workout[:public]) %>"></i></td>
+      <td class="w-15 action">
+        <a href="/manage/<%= workout[:id] %>/edit">
+          <i class="fas fa-edit"></i>
+        </a>
+      </td>
       <td class="w-55"><%= workout[:name] %></td>
-      <td class="w-15 action gray"><i class="<%= public_workout(workout[:public]) %>"></i></td>
-      <td class="w-15 action"><i class="fas fa-edit"></i></td>
+      <td class="action gray">
+        <form action="/manage/<%= workout[:id] %>/delete" method="post" class="delete gray">
+          <button type="submit" class="gray">
+            <i class="fas fa-trash"></i></a>
+          </button>
+        </form>
+      </td>
     </tr>
     <% end %>
   </table>
