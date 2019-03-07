@@ -1,5 +1,22 @@
 <a href="/">
-  <div class="header workout">
-    <h1><i class="fas fa-dumbbell"></i> Workout</h1>
+  <div class="header red">
+    <i class="fas fa-dumbbell"></i> Workout
   </div>
 </a>
+
+<div class="content">
+  <table class="workouts">
+    <tr>
+      <th class="left">Workouts</th>
+      <th class="right">Last Completed</th>
+    </tr>
+    <% @workouts.each do |workout| %>
+    <tr>
+      <td>
+        <a class="red-text" href="/workout/<%= workout[:id] %>"><%= workout[:name] %></a>
+      </td>
+      <td class="right"><%= workout[:last_completed] %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

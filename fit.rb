@@ -60,49 +60,76 @@ post '/measure/add' do
   redirect '/measure'
 end
 
-post '/measure/:id/delete' do
-  @storage.delete_measurement(params[:id])
+post '/measure/:measurement_id/delete' do
+  @storage.delete_measurement(params[:measurement_id])
   redirect '/measure'
 end
 
 # MANAGE
 # workout management portal
 get '/manage' do
-  @workouts = @storage.get_workouts
-  # @today = Time.now.to_s[0..9]
   erb :manage
 end
 
 # add workout
-post '/manage/add' do
-  @measurements = @storage.add_workout(params)
-  redirect '/manage'
-end
+# post '/manage/add' do
+#   @measurements = @storage.add_workout(params)
+#   redirect '/manage'
+# end
 
 # edit workout
-get '/manage/:id/edit' do
-  @workouts = @storage.get_workout(params[:id])
-  @exercises = @storage.get_exercises
-  erb :edit_workout
-end
+# get '/manage/:id/edit' do
+#   @workouts = @storage.get_workout(params[:id])
+#   @exercises = @storage.get_exercises
+#   erb :edit_workout
+# end
 
-get '/manage/create_workout' do
-  erb :create_workout
-end
+# get '/manage/create_workout' do
+#   erb :create_workout
+# end
 
-post '/manage/create_workout' do
-  @storage.create_workout(params)
-  workout_id = @storage.get_workout_id(params)
-  redirect "/manage/#{workout_id}/edit"
-end
+# post '/manage/create_workout' do
+#   @storage.create_workout(params)
+#   workout_id = @storage.get_workout_id(params)
+#   redirect "/manage/#{workout_id}/edit"
+# end
 
-post '/manage/:id/delete' do
-  @storage.delete_workout(params[:id])
-  redirect '/manage'
-end
+# post '/manage/:id/delete' do
+#   @storage.delete_workout(params[:id])
+#   redirect '/manage'
+# end
 
 # WORKOUT
 # workout portal
 get '/workout' do
+  @workouts = @storage.get_active_workouts
   erb :workout
+end
+
+# go so specific workout
+get '/workout/:workout_id' do
+  workout_id = params[:workout_id]
+  @workout = @storage.get_workout(workout_id)
+  @exercises = @storage.get_workout_exercises(workout_id)
+  @instances = @storage.get_instances(workout_id)
+  erb :do_workout
+end
+
+post '/workout/:workout_id/exercise/:exercise_id/add_set' do
+  unless params[:weight].empty? || params[:reps].empty?
+    @storage.add_set(params)
+    @storage.update_last_completed(params[:workout_id])
+  end
+  redirect "/workout/#{params[:workout_id]}"
+end
+
+post '/workout/:workout_id/instances/:instance_id/delete' do
+  @storage.delete_instance(params[:instance_id])
+  redirect "/workout/#{params[:workout_id]}"
+end
+
+# PROGRESS
+# progression portal
+get '/progress' do
+  erb :progress
 end

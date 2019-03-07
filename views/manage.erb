@@ -1,34 +1,9 @@
 <a href="/">
-  <div class="header manage">
-    <h1><i class="fas fa-edit"></i> Manage</h1>
+  <div class="header light-gray">
+    <i class="fas fa-edit"></i> Manage
   </div>
 </a>
 
 <div class="content">
-  <table class="manages container">
-    <tr>
-      <th></th>
-      <th class="w-55">Workouts</th>
-      <th class="w-15">
-        <a href="/manage/create_workout"><i class="fas fa-plus-circle"></i></a>
-      </th>
-    </tr>
-    <% @workouts.each do |workout| %>
-    <tr>
-      <td class="w-15 action">
-        <a href="/manage/<%= workout[:id] %>/edit">
-          <i class="fas fa-edit"></i>
-        </a>
-      </td>
-      <td class="w-55"><%= workout[:name] %></td>
-      <td class="action gray">
-        <form action="/manage/<%= workout[:id] %>/delete" method="post" class="delete gray">
-          <button type="submit" class="gray">
-            <i class="fas fa-trash"></i></a>
-          </button>
-        </form>
-      </td>
-    </tr>
-    <% end %>
-  </table>
+
 </div>

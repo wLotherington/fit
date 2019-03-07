@@ -1,0 +1,59 @@
+<a href="/workout">
+  <div class="header red">
+    <i class="fas fa-dumbbell"></i> Workout
+  </div>
+</a>
+
+<div class="content">
+  <h2 class="red-text"><%= @workout[:name] %></h2>
+
+  <table class="workout">
+    <tr>
+      <th class="left">Exercise</th>
+      <th>Set</th>
+      <th>Rep</th>
+      <th>Weight</th>
+      <th></th>
+    </tr>
+    <% @exercises.each do |exercise| %>
+    <form action="/workout/<%= params[:workout_id] %>/exercise/<%= exercise[:id] %>/add_set" method="post" >
+      <tr>
+        <td><%= exercise[:name] %></td>
+        <td><%= exercise[:target_sets] %></td>
+        <td><input name="reps" type="tel" placeholder="<%= exercise[:target_reps] %>" /></td>
+        <td><input name="weight" type="tel" placeholder="<%= exercise[:starting_weight] %>" /></td>
+        <td>
+          <button type="submit">
+            <a class="dark" href=""><i class="fas fa-plus-circle"></i></a>
+          </button>
+        </td>
+      </tr>
+    </form>
+    <% end %>
+  </table>
+
+  <br><br>
+  <h2 class="red-text">Completed Today</h2>
+  <table class="workout-log light">
+    <tr>
+      <th class="left">Exercise</th>
+      <th>Rep</th>
+      <th>Weight</th>
+      <th></th>
+    </tr>
+    <% @instances.each do |instance| %>
+    <tr>
+      <td><%= instance[:name] %></td>
+      <td><%= instance[:completed_reps] %></td>
+      <td><%= instance[:lifted_weight] %></td>
+      <td>
+        <form action="/workout/<%= params[:workout_id] %>/instances/<%= instance[:id] %>/delete" method="post" class="delete right">
+          <button type="submit" class="light">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

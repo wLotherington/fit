@@ -28,76 +28,166 @@ class Database
     end
   end
 
+  # MEASURE
   def add_measurement(params)
     sql = 'INSERT INTO measurements (day, weight, body_fat) VALUES ($1, $2, $3)'
     query(sql, params[:day], params[:weight].to_f, params[:body_fat].to_f)
   end
 
-  def delete_measurement(id)
+  def delete_measurement(measurement_id)
     sql = 'DELETE FROM measurements WHERE id=$1'
-    query(sql, id)
+    query(sql, measurement_id)
   end
 
-  def get_workouts
-    sql = 'SELECT * FROM workouts ORDER BY day_created DESC'
+  # WORKOUT
+  def get_active_workouts
+    sql = 'SELECT * FROM workouts WHERE active = true ORDER BY last_completed DESC'
     results = query(sql)
 
     results.map do |tuple|
       {
         id: tuple['id'],
         name: tuple['name'],
-        day_created: tuple['day_created'],
-        last_completed: tuple['creator_id'],
+        time_created: tuple['time_created'],
+        last_completed: tuple['last_completed'],
         active: tuple['active'],
       }
     end
   end
 
-  def get_workout(id)
+  def get_workout(workout_id)
     sql = 'SELECT * FROM workouts WHERE id = $1'
-    result = query(sql, id)
+    result = query(sql, workout_id)
     tuple = result.first
     
     {
       id: tuple['id'],
       name: tuple['name'],
-      day_created: tuple['day_created'],
-      last_completed: tuple['creator_id'],
+      time_created: tuple['time_created'],
+      last_completed: tuple['last_completed'],
       active: tuple['active'],
     }
   end
 
-  def get_exercises
-    sql = 'SELECT * FROM exercises ORDER BY id DESC'
-    results = query(sql)
-
+  def get_workout_exercises(workout_id)
+    sql = <<~SQL
+      SELECT e.*, we.*
+      FROM exercises AS e
+      INNER JOIN workouts_exercises AS we ON e.id = we.exercise_id
+      WHERE we.workout_id = $1
+    SQL
+    results = query(sql, workout_id)
+    
     results.map do |tuple|
       {
         id: tuple['id'],
         name: tuple['name'],
-        sets: tuple['sets'],
-        reps: tuple['reps'],
-        weight: tuple['weight']
+        time_created: tuple['time_created'],
+        last_completed: tuple['last_completed'],
+        active: tuple['active'],
+        target_sets: tuple['target_sets'],
+        target_reps: tuple['target_reps'],
+        starting_weight: tuple['starting_weight']
       }
     end
   end
 
-  def create_workout(params)
-    sql = 'INSERT INTO workouts (name, active) VALUES ($1, $2)'
-    query(sql, params[:name], !!params[:active])
+  def get_instances(workout_id)
+    sql = <<~SQL
+      SELECT i.*, e.name
+      FROM instances AS i
+      INNER JOIN workouts_exercises AS we ON i.workout_exercise_id = we.id
+      INNER JOIN exercises AS e ON e.id = we.exercise_id
+      WHERE we.workout_id = $1
+      AND date(i.time_completed) = date(now())
+      ORDER BY time_completed DESC;
+    SQL
+    results = query(sql, workout_id)
+    
+    results.map do |tuple|
+      {
+        id: tuple['id'],
+        name: tuple['name'],
+        workout_exercise_id: tuple['workout_exercise_id'],
+        time_completed: tuple['time_completed'],
+        completed_sets: tuple['completed_sets'],
+        completed_reps: tuple['completed_reps'],
+        lifted_weight: tuple['lifted_weight']
+      }
+    end
   end
 
-  def get_workout_id(params)
-    sql = 'SELECT id FROM workouts WHERE name = $1 ORDER BY id DESC LIMIT 1'
-    result = query(sql, params[:name])
+  def add_set(params)
+    workout_exercise_id = get_workout_exercise_id(params)
 
+    sql = <<~SQL
+      INSERT INTO instances (workout_exercise_id, completed_reps, lifted_weight)
+      VALUES ($1, $2, $3);
+    SQL
+    query(sql, workout_exercise_id, params[:reps], params[:weight])
+  end
+
+  def get_workout_exercise_id(params)
+    sql = 'SELECT id FROM workouts_exercises WHERE exercise_id = $1 AND workout_id = $2;'
+    result = query(sql, params[:exercise_id], params[:workout_id])
     result.first['id']
   end
 
-  def delete_workout(id)
-    sql = 'DELETE FROM workouts WHERE id=$1'
-    query(sql, id)
+  def delete_instance(instance_id)
+    sql = 'DELETE FROM instances WHERE id = $1'
+    result = query(sql, instance_id)
   end
+
+  def update_last_completed(workout_id)
+    sql = 'UPDATE workouts SET last_completed = now() WHERE id = $1;'
+    query(sql, workout_id)
+  end
+
+  # def get_workout(id)
+  #   sql = 'SELECT * FROM workouts WHERE id = $1'
+  #   result = query(sql, id)
+  #   tuple = result.first
+    
+  #   {
+  #     id: tuple['id'],
+  #     name: tuple['name'],
+  #     day_created: tuple['day_created'],
+  #     last_completed: tuple['creator_id'],
+  #     active: tuple['active'],
+  #   }
+  # end
+
+  # def get_exercises
+  #   sql = 'SELECT * FROM exercises ORDER BY id DESC'
+  #   results = query(sql)
+
+  #   results.map do |tuple|
+  #     {
+  #       id: tuple['id'],
+  #       name: tuple['name'],
+  #       sets: tuple['sets'],
+  #       reps: tuple['reps'],
+  #       weight: tuple['weight']
+  #     }
+  #   end
+  # end
+
+  # def create_workout(params)
+  #   sql = 'INSERT INTO workouts (name, active) VALUES ($1, $2)'
+  #   query(sql, params[:name], !!params[:active])
+  # end
+
+  # def get_workout_id(params)
+  #   sql = 'SELECT id FROM workouts WHERE name = $1 ORDER BY id DESC LIMIT 1'
+  #   result = query(sql, params[:name])
+
+  #   result.first['id']
+  # end
+
+  # def delete_workout(id)
+  #   sql = 'DELETE FROM workouts WHERE id=$1'
+  #   query(sql, id)
+  # end
 
   private
 
