@@ -65,21 +65,21 @@ INSERT INTO workouts_exercises (workout_id, exercise_id, target_sets, target_rep
   (3, 2, 4, 5, 100)
 ;
 
-INSERT INTO instances (workout_exercise_id, completed_sets, completed_reps, lifted_weight) VALUES
-  (1, 4, 5, 100),
-  (1, 4, 5, 110),
-  (1, 4, 5, 120),
-  (1, 4, 5, 130),
-  (2, 4, 5, 140),
-  (2, 4, 5, 150),
-  (2, 4, 5, 160),
-  (2, 4, 5, 170),
-  (3, 4, 5, 100),
-  (4, 4, 5, 110),
-  (5, 4, 5, 120),
-  (3, 4, 5, 130),
-  (3, 4, 5, 140),
-  (4, 4, 5, 150),
-  (5, 4, 5, 160),
-  (4, 4, 5, 170)
+INSERT INTO instances (workout_exercise_id, completed_reps, lifted_weight) VALUES
+  (1, 5, 100),
+  (1, 5, 110),
+  (1, 5, 120),
+  (1, 5, 130),
+  (2, 5, 140),
+  (2, 5, 150),
+  (2, 5, 160),
+  (2, 5, 170),
+  (3, 5, 100),
+  (4, 5, 110),
+  (5, 5, 120),
+  (3, 5, 130),
+  (3, 5, 140),
+  (4, 5, 150),
+  (5, 5, 160),
+  (4, 5, 170)
 ;
