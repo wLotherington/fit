@@ -85,7 +85,8 @@ table {
 table.body tr,
 table.workouts tr,
 table.workout tr,
-table.workout-log tr {
+table.workout-log tr,
+table.manage tr {
   border-bottom: 1px solid #bfbfbb;
 }
 
@@ -115,10 +116,15 @@ table input {
   height: 25px;
 }
 
+table.manage input {
+  width: 100%;
+}
+
 table.workouts th, table.workouts td, 
 table.body th, table.body td,
 table.workout th, table.workout td,
-table.workout-log th, table.workout-log td {
+table.workout-log th, table.workout-log td,
+table.manage th, table.manage td {
   line-height: 40px;
 }
 
@@ -136,10 +142,19 @@ table.workout-log th {
 
 table.workout td:nth-child(5),
 table.workout-log td:nth-child(4),
+table.manage td:nth-child(2),
 table.workout th:nth-child(5),
-table.workout-log th:nth-child(4) {
+table.workout-log th:nth-child(4),
+table.manage th:nth-child(2) {
   width: 10%;
   text-align: right;
+}
+
+
+table.manage td:nth-child(1),
+table.manage th:nth-child(1) {
+  width: 90%;
+  text-align: left;
 }
 
 table.workout td:nth-child(1),

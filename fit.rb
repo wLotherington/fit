@@ -68,36 +68,11 @@ end
 # MANAGE
 # workout management portal
 get '/manage' do
+  @workouts = @storage.get_active_workouts
   erb :manage
 end
 
-# add workout
-# post '/manage/add' do
-#   @measurements = @storage.add_workout(params)
-#   redirect '/manage'
-# end
 
-# edit workout
-# get '/manage/:id/edit' do
-#   @workouts = @storage.get_workout(params[:id])
-#   @exercises = @storage.get_exercises
-#   erb :edit_workout
-# end
-
-# get '/manage/create_workout' do
-#   erb :create_workout
-# end
-
-# post '/manage/create_workout' do
-#   @storage.create_workout(params)
-#   workout_id = @storage.get_workout_id(params)
-#   redirect "/manage/#{workout_id}/edit"
-# end
-
-# post '/manage/:id/delete' do
-#   @storage.delete_workout(params[:id])
-#   redirect '/manage'
-# end
 
 # WORKOUT
 # workout portal

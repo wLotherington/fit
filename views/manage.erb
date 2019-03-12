@@ -5,5 +5,28 @@
 </a>
 
 <div class="content">
-
+  <table class="manage">
+    <tr>
+      <th class="left">Workouts</th>
+      <th></th>
+    </tr>
+    <form action="/measure/add" method="post" >
+      <tr>
+        <td><input name="weight" type="text" placeholder=" New Workout Name" /></td>
+        <td>
+          <button type="submit">
+            <a class="dark" href=""><i class="fas fa-plus-circle"></i></a>
+          </button>
+        </td>
+      </tr>
+    </form>
+    <% @workouts.each do |workout| %>
+    <tr>
+      <td class="left">
+        <a class="red-text" href="/workout/<%= workout[:id] %>"><i class="fas fa-dumbbell"></i> <%= workout[:name] %></a>
+      </td>
+      <td class="right light"><i class="fas fa-trash"></i></td>
+    </tr>
+    <% end %>
+  </table>
 </div>
