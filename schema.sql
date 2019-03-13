@@ -30,7 +30,7 @@ CREATE TABLE workouts_exercises (
 
 CREATE TABLE instances (
   id serial PRIMARY KEY,
-  workout_exercise_id integer NOT NULL REFERENCES workouts_exercises(id),
+  workout_exercise_id integer REFERENCES workouts_exercises(id),
   time_completed timestamp NOT NULL DEFAULT now(),
   completed_reps integer NOT NULL,
   lifted_weight numeric(5,2) NOT NULL

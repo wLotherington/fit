@@ -1,36 +1,88 @@
-<a href="/">
-  <div class="header manage">
-    <h1><i class="fas fa-edit"></i> Manage</h1>
+<a href="/manage">
+  <div class="header light-gray">
+    <i class="fas fa-edit"></i> Manage
   </div>
 </a>
 
 <div class="content">
-  <h2>Add exercises to: <%= @workouts[:name] %></h2>
-  <table width="100%">
+  <h2 class="dark">
+    <form action="/manage/<%= @workout[:id] %>/<%= @workout[:active] %>" method="post">
+      <button type="submit" class="light">
+        <i class="fas fa-<%= active?(@workout[:active]) %>square dark"></i>
+      </button>
+      <%= @workout[:name] %>
+    </form>
+  </h2>
+  <table class="manage-exercise-list">
     <tr>
-      <th></th>
-      <th>Name</th>
-      <th>sets</th>
-      <th>reps</th>
-      <th>weight</th>
+      <th class="left">Exercises</th>
+      <th>Set</th>
+      <th>Rep</th>
+      <th><i class="fas fa-weight-hanging"></i></th>
       <th></th>
     </tr>
+    <% @workout_exercises.each do |exercise| %>
     <tr>
-      <td>select</td>
-      <td>input</td>
-      <td>input</td>
-      <td>input</td>
-      <td>input</td>
-      <td>plus</td>
-    </tr>
-    <% @exercises.each do |exercise| %>
-    <tr>
-      <td>select</td>
-      <td><%= exercise[:name] %></td>
+      <td class="left"><%= exercise[:name] %></td>
       <td><%= exercise[:sets] %></td>
       <td><%= exercise[:reps] %></td>
       <td><%= exercise[:weight] %></td>
-      <td>delete</td>
+      <td class="right">
+        <form action="/manage/<%= @workout[:id] %>/workout_exercise/<%= exercise[:workout_exercise_id] %>/delete" method="post" class="delete">
+          <button type="submit" class="light">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  <br>
+
+  <h2 class="dark">Add Exercises</h2>
+  <table class="manage-exercise">
+    <tr class="light">
+      <th class="left" colspan="2">Exercises</th>
+      <th>Set</th>
+      <th>Rep</th>
+      <th><i class="fas fa-weight-hanging"></i></th>
+      <th></th>
+    </tr>
+    <form action="/manage/<%= @workout[:id] %>/exercise/add" method="post" >
+      <tr>
+        <td colspan="2"><input name="exercise_name" type="text" placeholder=" New Exercise Name" /></td>
+        <td><input name="sets" type="tel" /></td>
+        <td><input name="reps" type="tel" /></td>
+        <td><input name="weight" type="tel" /></td>
+        <td class="right">
+          <button type="submit">
+            <a class="dark" href=""><i class="fas fa-plus-circle"></i></a>
+          </button>
+        </td>
+      </tr>
+    </form>
+    <% @exercises.each do |exercise| %>
+    <tr>
+      <td class="left light">
+        <form action="/manage/<%= @workout[:id] %>/exercise/<%= exercise[:id] %>/delete" method="post" class="delete">
+          <button type="submit" class="light">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
+      <td class="left light">
+        <form action="/manage/<%= @workout[:id] %>/exercise/<%= exercise[:name] %>/add" method="post" >
+          <%= exercise[:name] %>
+        </td>
+        <td><input name="sets" type="tel" /></td>
+        <td><input name="reps" type="tel" /></td>
+        <td><input name="weight" type="tel" /></td>
+        <td class="right">
+          <button type="submit">
+            <a class="light" href=""><i class="fas fa-plus-circle"></i></a>
+          </button>
+        </form>
+      </td>
     </tr>
     <% end %>
   </table>

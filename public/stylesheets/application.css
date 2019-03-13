@@ -86,7 +86,9 @@ table.body tr,
 table.workouts tr,
 table.workout tr,
 table.workout-log tr,
-table.manage tr {
+table.manage tr,
+table.manage-exercise tr,
+table.manage-exercise-list tr {
   border-bottom: 1px solid #bfbfbb;
 }
 
@@ -97,10 +99,10 @@ table.body th, table.body td {
 
 table.body th:nth-child(4), table.body td:nth-child(4) {
   width: 10%;
-  /*text-align: right*/
 }
 
-table i {
+table i,
+h2 i {
   font-size: 25px;
   margin: auto;
 }
@@ -114,6 +116,7 @@ table input {
   width: 90%;
   border: 1px solid #bfbfbb;
   height: 25px;
+  vertical-align: middle;
 }
 
 table.manage input {
@@ -124,7 +127,9 @@ table.workouts th, table.workouts td,
 table.body th, table.body td,
 table.workout th, table.workout td,
 table.workout-log th, table.workout-log td,
-table.manage th, table.manage td {
+table.manage th, table.manage td,
+table.manage-exercise th, table.manage-exercise td,
+table.manage-exercise-list th, table.manage-exercise-list td {
   line-height: 40px;
 }
 
@@ -142,19 +147,10 @@ table.workout-log th {
 
 table.workout td:nth-child(5),
 table.workout-log td:nth-child(4),
-table.manage td:nth-child(2),
 table.workout th:nth-child(5),
-table.workout-log th:nth-child(4),
-table.manage th:nth-child(2) {
+table.workout-log th:nth-child(4) {
   width: 10%;
   text-align: right;
-}
-
-
-table.manage td:nth-child(1),
-table.manage th:nth-child(1) {
-  width: 90%;
-  text-align: left;
 }
 
 table.workout td:nth-child(1),
@@ -175,6 +171,44 @@ table.workout-log th:nth-child(1) {
   text-align: left;
 }
 
+table.manage td:nth-child(2),
+table.manage th:nth-child(2) {
+  width: 10%;
+  text-decoration: right;
+}
+
+table.manage-exercise,
+table.manage-exercise-list {
+  text-align: center;
+}
+
+table.manage-exercise td,
+table.manage-exercise th,
+table.manage-exercise tr:nth-child(3) td:nth-child(2),
+table.manage-exercise-list td,
+table.manage-exercise-list th {
+  width: 10%;
+}
+
+table.manage-exercise td:nth-child(2) {
+  width: 50%;
+}
+
+table.manage-exercise tr:nth-child(3) td:nth-child(1),
+table.manage-exercise th:nth-child(1),
+table.manage-exercise-list td:nth-child(1),
+table.manage-exercise-list th:nth-child(1) {
+  width: 60%;
+}
+
+table.manage-exercise tr:nth-child(3) td:nth-child(1) input {
+  width: 100%;
+}
+
+table.manage-exercise input {
+  width: 90%;
+}
+
 .light {
   color: #bfbfbb;
 }
@@ -187,6 +221,10 @@ table.workout-log th:nth-child(1) {
   color: #e8664f;
 }
 
+.dark-text {
+  color: #333333;
+}
+
 .right {
   text-align: right;
 }
@@ -195,178 +233,6 @@ table.workout-log th:nth-child(1) {
   text-align: left;
 }
 
-/*
-.center {
-  text-align: center
-}*/
-
-
-
-/** {
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  outline: 0px;
+.hidden {
+  display: none;
 }
-
-button, input[type="submit"], input[type="reset"] {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-}
-
-body {
-  font-family: sans-serif;
-}
-
-div.header, div.footer {
-  position: fixed;
-  width: 100%;
-  text-align: center;
-}
-
-div.header {
-  height: 100px;
-  line-height: 100px;
-}
-
-div.footer {
-  bottom: 0px;
-  line-height: 40px;
-  background-color: #333333;
-  color: #fff;
-}
-
-a.logout {
-  background-color: #ffffff;
-  color: #333333;
-  padding: 3px 10px 3px 10px;
-  border-radius: 50px;
-}
-
-h1 {
-  font-size: 40px;
-}
-
-div.content {
-  padding: 115px 15px 40px 15px;
-}
-
-a {
-  text-decoration: none;
-}
-
-div.header a {
-  color: #ffffff
-}
-
-.header a {
-  color: #666666;
-}
-
-div.button {
-  box-sizing: border-box;
-  height: 100px;
-  margin-bottom: 15px;
-  line-height: 100px;
-  font-size: 40px;
-  text-align: center;
-  border-radius: 50px;
-}
-
-.workout {
-  background-color: #e8664f;
-  color: #333333;
-}
-
-.measure {
-  background-color: #88b3ab;
-  color: #333333;
-}
-
-.manage {
-  background-color: #e8c992;
-  color: #333333;
-}
-
-.home {
-  background-color: #333333;
-  color: #fff;
-}
-
-table.container {
-  width: 100%;
-  color: #333333;
-  border-collapse: collapse;
-  text-align: center;
-  line-height: 40px;
-}
-
-table.container tr {
-  border-bottom: 1px solid #bfbfbb;
-}
-
-.action {
-  font-size: 1.5em;
-}
-
-input.body-stats {
-  border: 1px solid #bfbfbb;
-  width: 80%;
-  height: 25px;
-  text-align: center;
-}
-
-input.workout-form {
-  border: 1px solid #bfbfbb;
-  height: 25px;
-  text-align: center;
-  padding: 0px;
-}
-
-input.full-width {
-  width: 100%;
-}
-
-td.delete button {
-  color: #bfbfbb;
-  font-size: 1em;
-}
-
-td.gray {
-  color: #bfbfbb;
-}
-
-td.add button {
-  color: #333333;
-  font-size: 1em;
-}
-
-table.measurements th {
-  width: 30%;
-}
-
-table.measurements th:nth-child(4) {
-  width: 10%;
-}
-
-table.manages tr:nth-child(2) td {
-  text-align: center;
-}
-
-.w-15 {
-  width: 15%;
-}
-
-.w-55 {
-  width: 55%;
-}
-
-[type="checkbox"] {
-  vertical-align:middle;
-  transform: scale(1.75);
-}*/

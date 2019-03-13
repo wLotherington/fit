@@ -31,6 +31,22 @@ helpers do
       'far fa-square'
     end
   end
+
+  def active?(bool)
+    if bool == 'f'
+      ""
+    else
+      "check-"
+    end
+  end
+end
+
+def valid_exercise?(params)
+  return false if params[:exercise_name].empty?
+  return false if params[:sets].empty?
+  return false if params[:reps].empty?
+  return false if params[:weight].empty?
+  true
 end
 
 before do
@@ -68,11 +84,59 @@ end
 # MANAGE
 # workout management portal
 get '/manage' do
-  @workouts = @storage.get_active_workouts
+  @workouts = @storage.get_all_workouts
   erb :manage
 end
 
+post '/manage/:workout_id/delete' do
+  workout_id = params[:workout_id]
+  @storage.delete_workout(workout_id)
+  redirect '/manage'
+end
 
+post '/manage/add' do
+  workout_name = params[:workout_name].strip
+  redirect '/manage' if workout_name.empty?
+  @storage.create_workout(workout_name)
+  workout_id = @storage.get_largest_workout_id
+  workout_id
+  redirect "/manage/#{workout_id}/edit"
+end
+
+get '/manage/:workout_id/edit' do
+  @workout = @storage.get_workout(params[:workout_id])
+  @exercises = @storage.get_exercises
+  @workout_exercises = @storage.get_manage_workout_exercises(@workout[:id])
+  erb :edit_workout
+end
+
+post '/manage/:workout_id/exercise/:exercise_id/delete' do
+  @storage.delete_exercise(params[:exercise_id])
+  redirect "/manage/#{params[:workout_id]}/edit"
+end
+
+post '/manage/:workout_id/exercise/add' do
+  redirect "/manage/#{params[:workout_id]}/edit" unless valid_exercise?(params)
+  @storage.create_exercise(params)
+  redirect "/manage/#{params[:workout_id]}/edit"
+end
+
+post '/manage/:workout_id/exercise/:exercise_name/add' do
+  redirect "/manage/#{params[:workout_id]}/edit" unless valid_exercise?(params)
+  @storage.add_exercise(params)
+  redirect "/manage/#{params[:workout_id]}/edit"
+end
+
+post '/manage/:workout_id/workout_exercise/:workout_exercise_id/delete' do
+  @storage.delete_workout_exercise(params[:workout_exercise_id])
+  redirect "/manage/#{params[:workout_id]}/edit"
+end
+
+post '/manage/:workout_id/:toggle' do
+  state = params[:toggle] == 't' ? 'FALSE' : 'TRUE'
+  @storage.toggle_workout(params[:workout_id], state)
+  redirect "/manage/#{params[:workout_id]}/edit"
+end
 
 # WORKOUT
 # workout portal

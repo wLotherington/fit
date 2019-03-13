@@ -10,10 +10,10 @@
       <th class="left">Workouts</th>
       <th></th>
     </tr>
-    <form action="/measure/add" method="post" >
+    <form action="/manage/add" method="post" >
       <tr>
-        <td><input name="weight" type="text" placeholder=" New Workout Name" /></td>
-        <td>
+        <td><input name="workout_name" type="text" placeholder=" New Workout Name" /></td>
+        <td class="right">
           <button type="submit">
             <a class="dark" href=""><i class="fas fa-plus-circle"></i></a>
           </button>
@@ -23,9 +23,15 @@
     <% @workouts.each do |workout| %>
     <tr>
       <td class="left">
-        <a class="red-text" href="/workout/<%= workout[:id] %>"><i class="fas fa-dumbbell"></i> <%= workout[:name] %></a>
+        <a class="dark" href="/manage/<%= workout[:id] %>/edit"><i class="fas fa-<%= active?(workout[:active]) %>square"></i> <%= workout[:name] %></a>
       </td>
-      <td class="right light"><i class="fas fa-trash"></i></td>
+      <td class="right light">
+        <form action="/manage/<%= workout[:id] %>/delete" method="post" class="delete">
+          <button type="submit" class="light">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
+      </td>
     </tr>
     <% end %>
   </table>
