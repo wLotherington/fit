@@ -84,10 +84,11 @@ class Database
 
   def get_workout_exercises(workout_id)
     sql = <<~SQL
-      SELECT e.*, we.*, e.id AS exercise_id
+      SELECT e.*, we.*, we.id AS workout_exercise_id, e.id AS exercise_id
       FROM exercises AS e
       INNER JOIN workouts_exercises AS we ON e.id = we.exercise_id
       WHERE we.workout_id = $1
+      ORDER BY workout_exercise_id ASC;
     SQL
     results = query(sql, workout_id)
     
@@ -97,6 +98,7 @@ class Database
         name: tuple['name'],
         time_created: tuple['time_created'],
         last_completed: tuple['last_completed'],
+        workout_exercise_id: tuple['workout_exercise_id'],
         active: tuple['active'],
         target_sets: tuple['target_sets'],
         target_reps: tuple['target_reps'],
@@ -142,10 +144,6 @@ class Database
 
   def get_workout_exercise_id(params)
     sql = 'SELECT id FROM workouts_exercises WHERE exercise_id = $1 AND workout_id = $2;'
-    puts "========================="
-    puts "========================="
-    puts "========================="
-    p params
     result = query(sql, params[:exercise_id], params[:workout_id])
     result.first['id']
   end
@@ -243,11 +241,26 @@ class Database
   end
 
   def get_manage_workout_exercises(workout_id)
+    # select all workout_exercise_id's with the specified workout_id
+    sql = 'SELECT id FROM workouts_exercises WHERE workout_id = $1'
+    results = query(sql, workout_id)
+
+    workout_exercise_ids = results.map do |tuple|
+      tuple['id']
+    end
+
+    # update instnace table foreign key cosntraint
+    workout_exercise_ids.each do |workout_exercise_id|
+      sql = 'UPDATE instances SET workout_exercise_id = NULL where workout_exercise_id = $1'
+      query(sql, workout_exercise_id)
+    end
+
+    # delete workout_exercise
     sql = <<~SQL
       SELECT *, we.id AS workout_exercise_id FROM exercises AS e
       INNER JOIN workouts_exercises AS we ON we.exercise_id = e.id
       WHERE we.workout_id = $1
-      ORDER BY time_created DESC
+      ORDER BY workout_exercise_id ASC
     SQL
     results = query(sql, workout_id)
 
@@ -271,6 +284,21 @@ class Database
   def delete_workout_exercise(workout_exercise_id)
     sql = 'DELETE FROM workouts_exercises WHERE id = $1'
     query(sql, workout_exercise_id)
+  end
+
+  def last_weight(workout_exercise_id)
+    sql = <<~SQL
+      SELECT SUM(completed_reps * lifted_weight) AS total_weight, time_completed::date AS date_completed
+      FROM instances
+      WHERE workout_exercise_id = $1
+      AND time_completed::date != date(now())
+      GROUP BY date_completed
+      ORDER BY date_completed DESC LIMIT 1;
+    SQL
+    result = query(sql, workout_exercise_id)
+    
+    return result.first['total_weight'] unless result.first.nil?
+    false
   end
 
   private

@@ -21,7 +21,7 @@
         <td><%= exercise[:name] %></td>
         <td><%= exercise[:target_sets] %></td>
         <td><input name="reps" type="tel" placeholder="<%= exercise[:target_reps] %>" /></td>
-        <td><input name="weight" type="tel" placeholder="<%= exercise[:starting_weight] %>" /></td>
+        <td><input name="weight" type="tel" placeholder="<%= reccommend_weight(exercise) %>" /></td>
         <td>
           <button type="submit">
             <a class="dark" href=""><i class="fas fa-plus-circle"></i></a>

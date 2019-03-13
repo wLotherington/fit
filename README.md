@@ -1,6 +1,7 @@
 # Fit
-## Overview
-A small fitness logger that allows users to create, track, and share workouts. This web app was created to reinforce the lessons learned at LaunchSchool.com and to create an easy way for me to track the exercises I do as I slowly work myself back into acceptable shape.
+A small fitness logger that allows me to create and track workouts. This web app was created to reinforce the lessons learned at LaunchSchool.com and to create an easy way for me to track the exercises I do as I slowly work myself back into acceptable shape. It was built with a Ruby back end on a sinatra framework.
 
-## Technology
-Ruby & Sinatra Backend
+## Todo
+* Login
+* progress by day or by exercise
+* recommended weight

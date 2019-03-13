@@ -39,6 +39,15 @@ helpers do
       "check-"
     end
   end
+
+  def reccommend_weight(exercise)
+    total_weight = @storage.last_weight(exercise[:workout_exercise_id])
+    if !!total_weight
+      (total_weight.to_f / exercise[:target_reps].to_f / exercise[:target_sets].to_f).round(2)
+    else
+      exercise[:starting_weight]
+    end
+  end
 end
 
 def valid_exercise?(params)
@@ -151,6 +160,15 @@ get '/workout/:workout_id' do
   @workout = @storage.get_workout(workout_id)
   @exercises = @storage.get_workout_exercises(workout_id)
   @instances = @storage.get_instances(workout_id)
+  puts "============================"
+  puts "============================"
+  puts @instances
+  puts
+  puts "============================"
+  puts
+  puts @exercises
+  puts "============================"
+  puts "============================"
   erb :do_workout
 end
 

@@ -36,50 +36,50 @@ CREATE TABLE instances (
   lifted_weight numeric(5,2) NOT NULL
 );
 
-INSERT INTO measurements (weight, body_fat) VALUES
-  (180, 15),
-  (180, 12)
-;
+-- INSERT INTO measurements (weight, body_fat) VALUES
+--   (180, 15),
+--   (180, 12)
+-- ;
 
-INSERT INTO workouts (name, active) VALUES
-  ('first workout', true),
-  ('second workout', true),
-  ('third workout', false)
-;
+-- INSERT INTO workouts (name, active) VALUES
+--   ('first workout', true),
+--   ('second workout', true),
+--   ('third workout', false)
+-- ;
 
-INSERT INTO exercises (name) VALUES
-  ('test1'),
-  ('test2'),
-  ('test3'),
-  ('test4')
-;
+-- INSERT INTO exercises (name) VALUES
+--   ('test1'),
+--   ('test2'),
+--   ('test3'),
+--   ('test4')
+-- ;
 
-INSERT INTO workouts_exercises (workout_id, exercise_id, target_sets, target_reps, starting_weight) VALUES
-  (1, 1, 4, 5, 100),
-  (1, 2, 4, 5, 100),
-  (1, 3, 4, 5, 100),
-  (2, 1, 4, 5, 100),
-  (2, 2, 4, 5, 100),
-  (2, 3, 4, 5, 100),
-  (3, 1, 4, 5, 100),
-  (3, 2, 4, 5, 100)
-;
+-- INSERT INTO workouts_exercises (workout_id, exercise_id, target_sets, target_reps, starting_weight) VALUES
+--   (1, 1, 4, 5, 100),
+--   (1, 2, 4, 5, 100),
+--   (1, 3, 4, 5, 100),
+--   (2, 1, 4, 5, 100),
+--   (2, 2, 4, 5, 100),
+--   (2, 3, 4, 5, 100),
+--   (3, 1, 4, 5, 100),
+--   (3, 2, 4, 5, 100)
+-- ;
 
-INSERT INTO instances (workout_exercise_id, completed_reps, lifted_weight) VALUES
-  (1, 5, 100),
-  (1, 5, 110),
-  (1, 5, 120),
-  (1, 5, 130),
-  (2, 5, 140),
-  (2, 5, 150),
-  (2, 5, 160),
-  (2, 5, 170),
-  (3, 5, 100),
-  (4, 5, 110),
-  (5, 5, 120),
-  (3, 5, 130),
-  (3, 5, 140),
-  (4, 5, 150),
-  (5, 5, 160),
-  (4, 5, 170)
-;
+-- INSERT INTO instances (workout_exercise_id, completed_reps, lifted_weight) VALUES
+--   (1, 5, 100),
+--   (1, 5, 110),
+--   (1, 5, 120),
+--   (1, 5, 130),
+--   (2, 5, 140),
+--   (2, 5, 150),
+--   (2, 5, 160),
+--   (2, 5, 170),
+--   (3, 5, 100),
+--   (4, 5, 110),
+--   (5, 5, 120),
+--   (3, 5, 130),
+--   (3, 5, 140),
+--   (4, 5, 150),
+--   (5, 5, 160),
+--   (4, 5, 170)
+-- ;
