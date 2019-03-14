@@ -88,7 +88,9 @@ table.workout tr,
 table.workout-log tr,
 table.manage tr,
 table.manage-exercise tr,
-table.manage-exercise-list tr {
+table.manage-exercise-list tr,
+table.progress tr,
+table.progress-exercise tr {
   border-bottom: 1px solid #bfbfbb;
 }
 
@@ -209,6 +211,46 @@ table.manage-exercise input {
   width: 90%;
 }
 
+/*table, tr, td {
+  border: 1px solid black;
+}*/
+
+table.progress,
+table.progress-exercise {
+  text-align: center;
+}
+
+table.progress tr,
+table.progress-exercise tr {
+  line-height: 30px;
+}
+
+table.progress td:nth-child(2),
+table.progress td:nth-child(3),
+table.progress-exercise td:nth-child(3),
+table.progress-exercise td:nth-child(4) {
+  width: 10%;
+}
+
+table.progress-exercise td:nth-child(2) {
+  width: 30%;
+}
+
+table.progress td:nth-child(1),
+table.progress th:nth-child(1),
+table.progress-exercise td:nth-child(1),
+table.progress-exercise th:nth-child(1) {
+  text-align: left;
+}
+
+table.progress-menu {
+  font-size: 20px;
+  line-height: 40px;
+}
+
+table.progress-menu
+/*FINISH STYLING*/
+
 .light {
   color: #bfbfbb;
 }
@@ -221,6 +263,14 @@ table.manage-exercise input {
   color: #e8664f;
 }
 
+.yellow-text {
+  color: #e8c992;
+}
+
+.light-text {
+  color: #bfbfbb;
+}
+
 .dark-text {
   color: #333333;
 }
@@ -231,6 +281,10 @@ table.manage-exercise input {
 
 .left {
   text-align: left;
+}
+
+.center {
+  text-align: center;
 }
 
 .hidden {

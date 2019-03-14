@@ -48,6 +48,18 @@ helpers do
       exercise[:starting_weight]
     end
   end
+
+  def workout_status(exercise, instances)
+    set_count = instances.select { |instance| instance[:workout_exercise_id] == exercise[:workout_exercise_id] }.count
+    
+    if set_count.zero?
+      "dark"
+    elsif set_count < exercise[:target_sets].to_i
+      "red-text"
+    else
+      "light"
+    end
+  end
 end
 
 def valid_exercise?(params)
@@ -160,15 +172,6 @@ get '/workout/:workout_id' do
   @workout = @storage.get_workout(workout_id)
   @exercises = @storage.get_workout_exercises(workout_id)
   @instances = @storage.get_instances(workout_id)
-  puts "============================"
-  puts "============================"
-  puts @instances
-  puts
-  puts "============================"
-  puts
-  puts @exercises
-  puts "============================"
-  puts "============================"
   erb :do_workout
 end
 
@@ -188,5 +191,29 @@ end
 # PROGRESS
 # progression portal
 get '/progress' do
+  redirect '/progress/day'
+end
+
+get '/progress/day' do
+  instances = @storage.get_progress
+  dates = instances.map { |instance| instance[:time_completed][0..9] }.uniq
+  @dates_instances = dates.map do |date|
+    [
+      date,
+      instances.select { |instance| instance[:time_completed][0..9] == date }
+    ]
+  end
   erb :progress
+end
+
+get '/progress/exercise' do
+  instances = @storage.get_progress
+  exercises = instances.map { |instance| instance[:exercise_name] }.uniq
+  @exercises_instances = exercises.map do |exercise|
+    [
+      exercise,
+      instances.select { |instance| instance[:exercise_name] == exercise }
+    ]
+  end
+  erb :progress_exercise
 end

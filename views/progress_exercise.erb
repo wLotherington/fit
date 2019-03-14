@@ -6,22 +6,24 @@
 
 <div class="content">
   <h1 class="center">
-    <i class="fas fa-calendar-day"></i>
-    <a href="/progress/exercise"><i class="fas fa-dumbbell light-text"></i></a>
+    <a href="/progress/day"><i class="fas fa-calendar-day light-text"></i></a>
+    <i class="fas fa-dumbbell"></i>
   </h1>
-  <br>
 
-  <% @dates_instances.each do |date_instance| %>
-  <h3 class="yellow-text center"><%= date_instance[0] %></h3>
-  <table class="progress">
+  <% @exercises_instances.each do |exercise_instance| %>
+  <br>
+  <h3 class="yellow-text center"><%= exercise_instance[0] %></h3>
+  <table class="progress-exercise">
     <tr>
       <th>Exercise</th>
+      <th>Date</th>
       <th>Reps</th>
       <th><i class="fas fa-weight-hanging"></i></th>
     </tr>
-    <% date_instance[1].each do |instance| %>
+    <% exercise_instance[1].each do |instance| %>
     <tr>
       <td><%= instance[:exercise_name] %></td>
+      <td><%= instance[:time_completed][0..9] %></td>
       <td><%= instance[:completed_reps] %></td>
       <td><%= instance[:lifted_weight] %></td>
     </tr>

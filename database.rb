@@ -296,9 +296,29 @@ class Database
       ORDER BY date_completed DESC LIMIT 1;
     SQL
     result = query(sql, workout_exercise_id)
-    
+
     return result.first['total_weight'] unless result.first.nil?
     false
+  end
+
+  def get_progress
+    sql = <<~SQL
+      SELECT i.time_completed, i.completed_reps, i.lifted_weight, e.name
+      FROM instances AS i
+      INNER JOIN workouts_exercises AS we ON we.id = i.workout_exercise_id
+      INNER JOIN exercises AS e ON e.id = we.exercise_id
+      ORDER BY time_completed DESC;
+    SQL
+    results = query(sql)
+
+    results.map do |tuple|
+      {
+        time_completed: tuple['time_completed'],
+        completed_reps: tuple['completed_reps'],
+        lifted_weight: tuple['lifted_weight'],
+        exercise_name: tuple['name']
+      }
+    end
   end
 
   private

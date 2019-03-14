@@ -17,7 +17,7 @@
     </tr>
     <% @exercises.each do |exercise| %>
     <form action="/workout/<%= params[:workout_id] %>/exercise/<%= exercise[:id] %>/add_set" method="post" >
-      <tr>
+      <tr class="<%= workout_status(exercise, @instances) %>">
         <td><%= exercise[:name] %></td>
         <td><%= exercise[:target_sets] %></td>
         <td><input name="reps" type="tel" placeholder="<%= exercise[:target_reps] %>" /></td>

@@ -3,5 +3,3 @@ A small fitness logger that allows me to create and track workouts. This web app
 
 ## Todo
 * Login
-* progress by day or by exercise
-* recommended weight
