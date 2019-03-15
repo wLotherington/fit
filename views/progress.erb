@@ -11,9 +11,9 @@
   </h1>
   <br>
 
-  <% @dates_instances.each do |date_instance| %>
-  <h3 class="yellow-text center"><%= date_instance[0] %></h3>
-  <table class="progress">
+  <% @dates_instances.each_with_index do |date_instance, idx| %>
+  <h3 class="yellow-text center" onclick="toggle_visiblity(<%= idx %>)"><%= date_instance[0] %></h3>
+  <table class="progress" id="<%= idx %>">
     <tr>
       <th>Exercise</th>
       <th>Reps</th>

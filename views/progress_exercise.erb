@@ -10,10 +10,10 @@
     <i class="fas fa-dumbbell"></i>
   </h1>
 
-  <% @exercises_instances.each do |exercise_instance| %>
+  <% @exercises_instances.each_with_index do |exercise_instance, idx| %>
   <br>
-  <h3 class="yellow-text center"><%= exercise_instance[0] %></h3>
-  <table class="progress-exercise">
+  <h3 class="yellow-text center" onclick="toggle_visiblity(<%= idx %>)"><%= exercise_instance[0] %></h3>
+  <table class="progress-exercise" id="<%= idx %>">
     <tr>
       <th>Exercise</th>
       <th>Date</th>

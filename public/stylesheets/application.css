@@ -211,13 +211,10 @@ table.manage-exercise input {
   width: 90%;
 }
 
-/*table, tr, td {
-  border: 1px solid black;
-}*/
-
 table.progress,
 table.progress-exercise {
   text-align: center;
+  visibility: collapse;
 }
 
 table.progress tr,

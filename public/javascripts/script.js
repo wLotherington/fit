@@ -1,5 +1,4 @@
 $(function() {
-
   $("form.delete").submit(function(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -9,5 +8,13 @@ $(function() {
       this.submit();
     }
   });
-
 });
+
+function toggle_visiblity(idx) {
+  var x = document.getElementById(idx);
+  if (x.style.visibility === "collapse") {
+    x.style.visibility = "visible";
+  } else {
+    x.style.visibility = "collapse";
+  }
+}
