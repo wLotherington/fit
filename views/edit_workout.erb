@@ -7,7 +7,7 @@
 <div class="content">
   <h2 class="dark">
     <form action="/manage/<%= @workout[:id] %>/<%= @workout[:active] %>" method="post">
-      <button type="submit" class="light">
+      <button type="submit" class="light-text">
         <i class="fas fa-<%= active?(@workout[:active]) %>square dark"></i>
       </button>
       <%= @workout[:name] %>
@@ -29,7 +29,7 @@
       <td><%= exercise[:weight] %></td>
       <td class="right">
         <form action="/manage/<%= @workout[:id] %>/workout_exercise/<%= exercise[:workout_exercise_id] %>/delete" method="post" class="delete">
-          <button type="submit" class="light">
+          <button type="submit" class="light-text">
             <i class="fas fa-trash"></i>
           </button>
         </form>
@@ -41,7 +41,7 @@
 
   <h2 class="dark">Add Exercises</h2>
   <table class="manage-exercise">
-    <tr class="light">
+    <tr class="light-text">
       <th class="left" colspan="2">Exercises</th>
       <th>Set</th>
       <th>Rep</th>
@@ -63,14 +63,14 @@
     </form>
     <% @exercises.each do |exercise| %>
     <tr>
-      <td class="left light">
+      <td class="left light-text">
         <form action="/manage/<%= @workout[:id] %>/exercise/<%= exercise[:id] %>/delete" method="post" class="delete">
-          <button type="submit" class="light">
+          <button type="submit" class="light-text">
             <i class="fas fa-trash"></i>
           </button>
         </form>
       </td>
-      <td class="left light">
+      <td class="left light-text">
         <form action="/manage/<%= @workout[:id] %>/exercise/<%= exercise[:name] %>/add" method="post" >
           <%= exercise[:name] %>
         </td>
@@ -79,7 +79,7 @@
         <td><input name="weight" type="tel" /></td>
         <td class="right">
           <button type="submit">
-            <a class="light" href=""><i class="fas fa-plus-circle"></i></a>
+            <a class="light-text" href=""><i class="fas fa-plus-circle"></i></a>
           </button>
         </form>
       </td>

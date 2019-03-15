@@ -34,7 +34,7 @@
 
   <br>
   <h2 class="red-text">Completed Today</h2>
-  <table class="workout-log light">
+  <table class="workout-log light-text">
     <tr>
       <th class="left">Exercise</th>
       <th>Rep</th>
@@ -48,7 +48,7 @@
       <td><%= instance[:lifted_weight] %></td>
       <td>
         <form action="/workout/<%= params[:workout_id] %>/instances/<%= instance[:id] %>/delete" method="post" class="delete right">
-          <button type="submit" class="light">
+          <button type="submit" class="light-text">
             <i class="fas fa-trash"></i>
           </button>
         </form>

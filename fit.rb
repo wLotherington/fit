@@ -57,7 +57,7 @@ helpers do
     elsif set_count < exercise[:target_sets].to_i
       "red-text"
     else
-      "light"
+      "light-text"
     end
   end
 end

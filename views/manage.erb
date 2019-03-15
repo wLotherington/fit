@@ -25,9 +25,9 @@
       <td class="left">
         <a class="dark" href="/manage/<%= workout[:id] %>/edit"><i class="fas fa-<%= active?(workout[:active]) %>square"></i> <%= workout[:name] %></a>
       </td>
-      <td class="right light">
+      <td class="right light-text">
         <form action="/manage/<%= workout[:id] %>/delete" method="post" class="delete">
-          <button type="submit" class="light">
+          <button type="submit" class="light-text">
             <i class="fas fa-trash"></i>
           </button>
         </form>
