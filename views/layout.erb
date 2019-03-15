@@ -12,6 +12,10 @@
 <body>
   <%== yield %>
   <div class="footer gray">
-    logged in as Will
+    <% if !!session[:username]  %>
+    <a href="/logout">Logged in as <%= session[:username] %>. Click here to log out.</a>
+    <% else  %>
+    <a href="/login">Logged out. click here to log in.</a>
+    <% end %>
   </div>
 </body>

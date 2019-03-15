@@ -1,0 +1,36 @@
+<a href="/">
+  <div class="header gray">
+    <i class="fas fa-user"></i> Login
+  </div>
+</a>
+
+<div class="content">
+  <div class="login-warning red-text">
+    <% if !!session[:warning] %>
+    <%= session.delete(:warning) %>
+    <% end %>
+  </div>
+  <table class="login">
+    <form action="/login" method="post" >
+      <tr>
+        <td>Username: </td>
+        <td>
+          <input name="username" type="text" id="username" />
+        </td>
+      </tr>
+      <tr>
+        <td>Password:</td>
+        <td>
+          <input name="password" type="password" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button type="submit" class="gray">
+            Login
+          </button>
+        </td>
+      </tr>
+    </form>
+  </table>
+</div>

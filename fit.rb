@@ -82,6 +82,26 @@ get '/' do
   erb :home
 end
 
+get '/login' do
+  erb :login
+end
+
+get '/logout' do
+  session.delete(:username)
+  redirect '/'
+end
+
+post '/login' do
+  if params[:username] == 'will' && params[:password] == 'kaplop'
+    session[:username] = params[:username]
+    redirect '/'
+  else
+    session[:warning] = 'Invalid Credentials'
+    status 422
+    erb :login
+  end
+end
+
 # MEASURE
 # body measurement portal
 get '/measure' do
