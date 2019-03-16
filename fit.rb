@@ -2,6 +2,8 @@ require 'sinatra'
 require 'sinatra/content_for'
 require 'tilt/erubis'
 require_relative "database.rb"
+require 'yaml'
+require 'bcrypt'
 
 configure do
   enable :sessions
@@ -62,12 +64,37 @@ helpers do
   end
 end
 
+def load_user_credentials
+  credentials_path = File.expand_path("../users.yml", __FILE__)
+  YAML.load_file(credentials_path)
+end
+
+def valid_credentials?(username, password)
+  credentials = load_user_credentials
+
+  if credentials.key?(username)
+    bcrypt_password = BCrypt::Password.new(credentials[username])
+    bcrypt_password == password
+  else
+    false
+  end
+end
+
 def valid_exercise?(params)
   return false if params[:exercise_name].empty?
   return false if params[:sets].empty?
   return false if params[:reps].empty?
   return false if params[:weight].empty?
   true
+end
+
+def not_signed_in?
+  if !session.key?(:username)
+    session[:logged_out] = "Restricted, please login."
+    true
+  else
+    false
+  end
 end
 
 before do
@@ -92,8 +119,10 @@ get '/logout' do
 end
 
 post '/login' do
-  if params[:username] == 'will' && params[:password] == 'kaplop'
-    session[:username] = params[:username]
+  username = params[:username].downcase
+
+  if valid_credentials?(username, params[:password])
+    session[:username] = username
     redirect '/'
   else
     session[:warning] = 'Invalid Credentials'
@@ -112,12 +141,13 @@ end
 
 # add body measurement
 post '/measure/add' do
-  redirect '/measure' if params[:day].empty?
+  redirect '/measure' if params[:day].empty? || not_signed_in?
   @storage.add_measurement(params)
   redirect '/measure'
 end
 
 post '/measure/:measurement_id/delete' do
+  redirect '/measure' if not_signed_in?
   @storage.delete_measurement(params[:measurement_id])
   redirect '/measure'
 end
@@ -130,12 +160,14 @@ get '/manage' do
 end
 
 post '/manage/:workout_id/delete' do
+  redirect '/manage' if not_signed_in?
   workout_id = params[:workout_id]
   @storage.delete_workout(workout_id)
   redirect '/manage'
 end
 
 post '/manage/add' do
+  redirect "/manage/#{workout_id}/edit" if not_signed_in?
   workout_name = params[:workout_name].strip
   redirect '/manage' if workout_name.empty?
   @storage.create_workout(workout_name)
@@ -152,28 +184,33 @@ get '/manage/:workout_id/edit' do
 end
 
 post '/manage/:workout_id/exercise/:exercise_id/delete' do
+  redirect "/manage/#{params[:workout_id]}/edit" if not_signed_in?
   @storage.delete_exercise(params[:exercise_id])
   redirect "/manage/#{params[:workout_id]}/edit"
 end
 
 post '/manage/:workout_id/exercise/add' do
+  redirect "/manage/#{params[:workout_id]}/edit" if not_signed_in?
   redirect "/manage/#{params[:workout_id]}/edit" unless valid_exercise?(params)
   @storage.create_exercise(params)
   redirect "/manage/#{params[:workout_id]}/edit"
 end
 
 post '/manage/:workout_id/exercise/:exercise_name/add' do
+  redirect "/manage/#{params[:workout_id]}/edit" if not_signed_in?
   redirect "/manage/#{params[:workout_id]}/edit" unless valid_exercise?(params)
   @storage.add_exercise(params)
   redirect "/manage/#{params[:workout_id]}/edit"
 end
 
 post '/manage/:workout_id/workout_exercise/:workout_exercise_id/delete' do
+  redirect "/manage/#{params[:workout_id]}/edit" if not_signed_in?
   @storage.delete_workout_exercise(params[:workout_exercise_id])
   redirect "/manage/#{params[:workout_id]}/edit"
 end
 
 post '/manage/:workout_id/:toggle' do
+  redirect "/manage/#{params[:workout_id]}/edit" if not_signed_in?
   state = params[:toggle] == 't' ? 'FALSE' : 'TRUE'
   @storage.toggle_workout(params[:workout_id], state)
   redirect "/manage/#{params[:workout_id]}/edit"
@@ -196,6 +233,7 @@ get '/workout/:workout_id' do
 end
 
 post '/workout/:workout_id/exercise/:exercise_id/add_set' do
+  redirect "/workout/#{params[:workout_id]}" if not_signed_in?
   unless params[:weight].empty? || params[:reps].empty?
     @storage.add_set(params)
     @storage.update_last_completed(params[:workout_id])
@@ -204,6 +242,7 @@ post '/workout/:workout_id/exercise/:exercise_id/add_set' do
 end
 
 post '/workout/:workout_id/instances/:instance_id/delete' do
+  redirect "/workout/#{params[:workout_id]}" if not_signed_in?
   @storage.delete_instance(params[:instance_id])
   redirect "/workout/#{params[:workout_id]}"
 end

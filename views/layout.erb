@@ -15,7 +15,13 @@
     <% if !!session[:username]  %>
     <a href="/logout">Logged in as <%= session[:username] %>. Click here to log out.</a>
     <% else  %>
-    <a href="/login">Logged out. click here to log in.</a>
+    <a href="/login">
+      <% if !!session[:logged_out]  %>
+      <span class="red-text"><%= session.delete(:logged_out) %></span>
+      <% else %>
+      Logged out. click here to log in.
+      <% end %>
+    </a>
     <% end %>
   </div>
 </body>
