@@ -8,7 +8,7 @@
 Fitness logger for tracking weight and exercises
 
 <img src="public/images/01.png" width="250px">
-<br>
+
 <img src="public/images/02.png" width="250px">
 
 <img src="public/images/03.png" width="250px">
