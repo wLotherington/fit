@@ -1,6 +1,6 @@
 # Fit
 
-* **Try it out:** [FIT](https://ls-fit.herokuapp.com/) (username: tester, password: tester)
+* **Try it out:** [https://fitness-tracker-wlotherington.herokuapp.com/](https://fitness-tracker-wlotherington.herokuapp.com/) (username: tester, password: tester)
 * **Stack:** `Ruby`, `Sinatra`
 * **Feedback:** [Will.Lotherington@hey.com](mailto:Will.Lotherington@hey.com)
 
